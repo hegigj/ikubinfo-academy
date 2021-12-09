@@ -1,11 +1,20 @@
-import {AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 
 @Component({
   selector: 'app-life-cycle-hooks',
   templateUrl: './life-cycle-hooks.component.html',
   styleUrls: ['./life-cycle-hooks.component.scss']
 })
-export class LifeCycleHooksComponent implements OnInit, AfterViewInit, OnChanges, AfterViewChecked {
+export class LifeCycleHooksComponent implements OnInit, AfterViewInit, OnChanges, AfterContentInit, AfterViewChecked {
 
   /**
    * Nje komponent eshte thjesht nje class qe ne momentin kur projekti kerkon te shfaqet, krijon nje instance te kesaj
@@ -59,6 +68,24 @@ export class LifeCycleHooksComponent implements OnInit, AfterViewInit, OnChanges
   ngOnChanges(changes: SimpleChanges) {
     console.log('[OnChange]: called every time that the input decorated with @Input changes state(value)');
     console.log('[OnChange]: changes', changes);
+  }
+
+  /**
+   * AfterContentInit eshte nje life cycle hook
+   * Per ta perdorur ne duhet te implementojme interface AfterContentInit
+   * Ky interface na imponon te perdorim metoden ngAfterContentInit(): void
+   * Kjo metode thirret pasi ne kemi perdorur ne html tag-un <ng-content>
+   * Ky tag na projekton kodin html qe ndodhet jasht html-se se komponentit por qe eshte perdorur midis tag-eve te
+   * selektorit te ketij komponenti.
+   * Ne rastin konkret ne kemi perdorur @Component({selector: app-life-cycle-hooks, ...})
+   * Ne app component ne kemi thirrur kete komponent ne html duke perdorur tag-un <app-life-cycle-hooks></app-life-cycle-hooks>
+   * <app-life-cycle-hooks>
+   *   cfare ndodhet midis tag-ut quhet content dhe mund te projektohet ne html-ne e ketij komponenti duke perdorur
+   *   ng-content
+   * </app-life-cycle-hooks>
+   */
+  ngAfterContentInit(): void {
+    console.log('[AfterContentInit]: called when content is rendered between ng-content tags');
   }
 
   /**
