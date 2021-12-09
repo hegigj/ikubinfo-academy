@@ -1,0 +1,10 @@
+<h1>{{title}}</h1>
+
+<h3>Life cycle hooks</h3>
+<button (click)="toggle()">{{btnLabel}}</button>
+<app-life-cycle-hooks
+  [input]="lifeCycleHooksComponentInput"
+  *ngIf="isShowed()"
+>
+  <button (click)="generateRandomNumber()">Change input</button>
+</app-life-cycle-hooks>
