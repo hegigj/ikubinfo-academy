@@ -1,10 +1,11 @@
 import {
+  AfterContentChecked,
   AfterContentInit,
   AfterViewChecked,
   AfterViewInit,
-  Component,
+  Component, DoCheck,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   SimpleChanges
 } from '@angular/core';
@@ -14,7 +15,7 @@ import {
   templateUrl: './life-cycle-hooks.component.html',
   styleUrls: ['./life-cycle-hooks.component.scss']
 })
-export class LifeCycleHooksComponent implements OnInit, AfterViewInit, OnChanges, AfterContentInit, AfterViewChecked {
+export class LifeCycleHooksComponent implements OnInit, AfterViewInit, OnChanges, AfterContentInit, AfterViewChecked, AfterContentChecked, DoCheck, OnDestroy {
 
   /**
    * Nje komponent eshte thjesht nje class qe ne momentin kur projekti kerkon te shfaqet, krijon nje instance te kesaj
@@ -97,5 +98,35 @@ export class LifeCycleHooksComponent implements OnInit, AfterViewInit, OnChanges
    */
   ngAfterViewChecked(): void {
     console.log('[AfterViewChecked]: called every time that state that is used on template or html is changed');
+  }
+
+  /**
+   * AfterContentChecked eshte nje life cycle hook
+   * Per ta perdorur ne duhet te implementojme interface AfterContentChecked
+   * Ky interface na imponon te perdorim metoden ngAfterContentChecked(): void
+   * Kjo metode thirret sa here content i vendosur midis tag-eve te ketij komponenti ndryshon state(vlere)
+   */
+  ngAfterContentChecked(): void {
+    console.log('[AfterContentChecked]: called after the content between this component tags changes state(value)');
+  }
+
+  /**
+   * DoCheck eshte nje life cycle hook
+   * Per ta perdorur ne duhet te implementojme interface DoCheck
+   * Ky interface na imponon te perdorim metoden ngDoCheck(): void
+   * Kjo metode thirret sa here komponenti duhet te ndryshoj state
+   */
+  ngDoCheck(): void {
+    console.log('[DoCheck]: called every time when component need to change state that is detected by angular change detection');
+  }
+
+  /**
+   * OnDestroy eshte nje life cycle hook
+   * Per ta perdorur ne duhet te implementojme interface OnDestroy
+   * Ky interface na imponon te perdorim metoden ngOnDestroy(): void
+   * Kjo metode thirret ne momentin kur komponenti shkaterohet dhe hiqet nga browser (DOM)
+   */
+  ngOnDestroy(): void {
+    console.log('[OnDestroy]: called when component is destroyed and removed from DOM');
   }
 }
